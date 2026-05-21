@@ -18,6 +18,9 @@ jobs:
   code-quality:
     name: Code Quality & Formatting
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DockerChicken-master
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -27,19 +30,22 @@ jobs:
       with:
         dotnet-version: '10.0.x'
         cache: true
-        cache-dependency-path: '**/*.csproj'
+        cache-dependency-path: 'DockerChicken-master/**/*.csproj'
 
     # FIX: Executable steps that use the configured cache layout to validate syntax stability
     - name: Verify Code Formatting # checks for whitespaces
-      run: dotnet format --verify-no-changes --severity warn
+      run: dotnet format DockerChicken.slnx --verify-no-changes --severity warn
 
     - name: Static Code Analysis # checks for code quality issues (errors)
-      run: dotnet build --configuration Release /warnaserror
+      run: dotnet build DockerChicken.slnx --configuration Release /warnaserror
 
   # JOB 2: Compiles the source files inside target Docker configurations
   compile-and-build:
     name: Docker Build & Package
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DockerChicken-master
     needs: code-quality # Only starts if static formatting checks pass cleanly
     steps:
     - name: Checkout code # checks code
@@ -50,7 +56,7 @@ jobs:
       with:
         dotnet-version: '10.0.x'
         cache: true
-        cache-dependency-path: '**/*.csproj'
+        cache-dependency-path: 'DockerChicken-master/**/*.csproj'
 
     - name: Build Application Containers # builds
       run: docker compose build
@@ -69,7 +75,7 @@ jobs:
       with:
         dotnet-version: '10.0.x'
         cache: true
-        cache-dependency-path: '**/*.csproj'
+        cache-dependency-path: 'DockerChicken-master/**/*.csproj'
 
     - name: Build and Launch Application Mesh
       run: docker compose up --build -d
@@ -90,7 +96,7 @@ jobs:
         curl -X POST http://localhost:8080/api/chicken \
           -H "Content-Type: application/json" \
           -d '{"name": "Cluck Norris", "breed": "Rhode Island Red"}' \
-          -- fail --verbose
+          --fail --verbose
 
     - name: Integration Step 2 - Verify Front-End MVC Data Rendering
       run: |
@@ -117,6 +123,9 @@ jobs:
   cd-deployment:
     name: Production Cloud Deployment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DockerChicken-master
     needs: integration-testing # Only starts if all integration tests pass successfully
     if: github.ref == 'refs/head/main' || github.ref == 'refs/heads/master'
     environment: Production
