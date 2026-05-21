@@ -65,6 +65,9 @@ jobs:
   integration-testing:
     name: System Integration Verification
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./DockerChicken-master
     needs: compile-and-build # Only starts after Docker builds successfully finalize
     steps:
     - name: Checkout code
