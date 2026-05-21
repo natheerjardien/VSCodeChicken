@@ -93,7 +93,7 @@ jobs:
     - name: Integration Step 1 - Seed Data via API
       run: |
         echo "Posting a new chicken payload to the database..."
-        curl -X POST http://localhost:8080/api/chicken \
+        curl -X POST http://localhost:8080/api/Chicken \
           -H "Content-Type: application/json" \
           -d '{"name": "Cluck Norris", "breed": "Rhode Island Red"}' \
           --fail --verbose
@@ -113,7 +113,7 @@ jobs:
 
     - name: Tear Down Mesh and Logs
       if: always()
-      run:
+      run: |
         docker compose logs api-service > api-container-debug.log
         docker compose logs chick-db-service > db-container-debug.log
         docker compose logs mvc-service > mvc-container-debug.log
