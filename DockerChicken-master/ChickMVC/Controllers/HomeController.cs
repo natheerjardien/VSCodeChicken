@@ -8,7 +8,7 @@ namespace ChickMVC.Controllers
     {
         private readonly HttpClient _httpClient;
 
-        public HomeController (HttpClient httpClient)
+        public HomeController(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

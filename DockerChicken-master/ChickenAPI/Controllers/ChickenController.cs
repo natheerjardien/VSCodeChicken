@@ -70,7 +70,7 @@ namespace ChickenAPI.Controllers
 
                 throw;
             }
-            
+
             return NoContent();
         }
 
@@ -79,7 +79,7 @@ namespace ChickenAPI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var chicken = await _context.Chicken.FindAsync(id);
-            
+
             if (chicken == null)
             {
                 return NotFound();

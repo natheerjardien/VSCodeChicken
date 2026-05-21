@@ -17,7 +17,7 @@ namespace ChickenAPI
             builder.Services.AddOpenApi();
 
             var app = builder.Build();
-            
+
             if (true)
             {
                 app.MapOpenApi(); // Generates /openapi/v1.json
