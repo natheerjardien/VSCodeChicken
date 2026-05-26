@@ -171,46 +171,46 @@ jobs:
 
           echo "Deployment completely executed successfully!"
 
-# JOB 5: Connects over the public internet to verify the deployment is accesible globally
-post-deployment-smoke-test:
-  name:  Live Cloud Smoke Verification
-  runs-on: ubuntu-latest
-  needs: cd-deployment
-  if: github.ref == 'ref/heads/main' || github.ref == 'refs/heads/master'
-  steps:
-  - name: Settle Environments
-    run: |
-      echo "Allowing containers 15 seconds to fully complete initial production boot cycles..."
-      sleep 15
+  # JOB 5: Connects over the public internet to verify the deployment is accesible globally
+  post-deployment-smoke-test:
+    name:  Live Cloud Smoke Verification
+    runs-on: ubuntu-latest
+    needs: cd-deployment
+    if: github.ref == 'ref/heads/main' || github.ref == 'refs/heads/master'
+    steps:
+    - name: Settle Environments
+      run: |
+        echo "Allowing containers 15 seconds to fully complete initial production boot cycles..."
+        sleep 15
 
-  - name: Verify Public REST API Gateway (Port 8080)
-    run: |
-      echo "Testing piublic connection to API over port 8080..."
-      API_URL="http://${{ secrets.DO_DROPLET_IP }}:8080/GetMeEggs"
+    - name: Verify Public REST API Gateway (Port 8080)
+      run: |
+        echo "Testing piublic connection to API over port 8080..."
+        API_URL="http://${{ secrets.DO_DROPLET_IP }}:8080/GetMeEggs"
 
-      # Pull response, enforicng a connection timeout if the netwrok blocks it
-      API_RESPONSE=$(curl -sSf --connect-timeout 10 "$API_URL")
-      echo "API Response Received: $API_RESPONSE"
+        # Pull response, enforicng a connection timeout if the netwrok blocks it
+        API_RESPONSE=$(curl -sSf --connect-timeout 10 "$API_URL")
+        echo "API Response Received: $API_RESPONSE"
 
-      if echo "$API_RESPONSE" | grep -q "Here are some eggs!"; then
-        echo "✅ PASSED: Backend cloud REST API gateway is live and responding externaly!"
-      else
-        echo "❌ FAILED: Backend API responded with unexpected data layout."
-        exit 1
-      fi
+        if echo "$API_RESPONSE" | grep -q "Here are some eggs!"; then
+          echo "✅ PASSED: Backend cloud REST API gateway is live and responding externaly!"
+        else
+          echo "❌ FAILED: Backend API responded with unexpected data layout."
+          exit 1
+        fi
 
-  - name: Verify Public MVC User Interface (Port 80)
-    run: |
-      echo "Testing public connection to MVC Front-End over port 80..."
-      MVC_URL="http://${{ secrets.DO_DROPLET_IP }}:80"
+    - name: Verify Public MVC User Interface (Port 80)
+      run: |
+        echo "Testing public connection to MVC Front-End over port 80..."
+        MVC_URL="http://${{ secrets.DO_DROPLET_IP }}:80"
 
-      MVC_HEADERS=$(curl -sI --connect-timeout 10 "$MVC_URL")
-      echo "$MVC_HEADERS"
+        MVC_HEADERS=$(curl -sI --connect-timeout 10 "$MVC_URL")
+        echo "$MVC_HEADERS"
 
-      if echo "$MVC_HEADERS" | grep -qE "200 OK|302 Found|302 Moved"; then
-        echo "✅ PASSED: Front-End MVC application is public and handling connections flawlessly!"
-      else
-        echo "❌ FAILED: Front-End MVC application refused external connection handshakes."
-        exit 1
-      fi
+        if echo "$MVC_HEADERS" | grep -qE "200 OK|302 Found|302 Moved"; then
+          echo "✅ PASSED: Front-End MVC application is public and handling connections flawlessly!"
+        else
+          echo "❌ FAILED: Front-End MVC application refused external connection handshakes."
+          exit 1
+        fi
 
