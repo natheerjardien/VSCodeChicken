@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-master\\ChickMVC\\ChickMVC.csproj": {}
+    "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-Master\\ChickMVC\\ChickMVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-master\\ChickMVC\\ChickMVC.csproj": {
+    "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-Master\\ChickMVC\\ChickMVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-master\\ChickMVC\\ChickMVC.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-Master\\ChickMVC\\ChickMVC.csproj",
         "projectName": "ChickMVC",
-        "projectPath": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-master\\ChickMVC\\ChickMVC.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-Master\\ChickMVC\\ChickMVC.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-master\\ChickMVC\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\VSCodeChicken\\DockerChicken-Master\\ChickMVC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

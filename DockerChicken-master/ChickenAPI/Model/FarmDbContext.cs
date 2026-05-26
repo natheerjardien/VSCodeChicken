@@ -13,7 +13,7 @@ namespace ChickenAPI.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(options => 
+                optionsBuilder.UseSqlServer(options =>
                     options.EnableRetryOnFailure(
                         maxRetryCount: 5,
                         maxRetryDelay: TimeSpan.FromSeconds(5),
