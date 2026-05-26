@@ -13,8 +13,6 @@ namespace ChickenAPI.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // This ensures that when SQL Server is still executing the init-database script, 
-                // the API waits and retries instead of crashing immediately.
                 optionsBuilder.UseSqlServer(options => 
                     options.EnableRetryOnFailure(
                         maxRetryCount: 5,
