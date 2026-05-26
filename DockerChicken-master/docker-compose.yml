@@ -20,7 +20,7 @@ services:
       dockerfile: ./ChickenAPI/Dockerfile
     container_name: api-chick-service
     environment:
-      - SQL_CONNECTION_STRING=Server=chick-db;Database=Farm;Trusted_Connection=false;MultipleActiveResultSets=true;Encrypt=false;user id=sa;password=Password1!
+      - SQL_CONNECTION_STRING=Server=chick-db;Database=Farm;User Id=sa;Password=Password1!;TrustServerCertificate=True;MultipleActiveResultSets=true;
       - ASPNETCORE_URLS=[http://0.0.0.0:8080](http://0.0.0.0:8080)
     ports:
       - "8080:8080"
@@ -36,7 +36,7 @@ services:
       dockerfile: ./ChickMVC/Dockerfile  # Path to MVC Dockerfile
     container_name: mvc-chick-service-magic
     environment:
-      - SQL_CONNECTION_STRING=Server=chick-db;Database=Farm;Trusted_Connection=false;MultipleActiveResultSets=true;Encrypt=false;user id=sa;password=Password1!
+      - SQL_CONNECTION_STRING=Server=chick-db;Database=Farm;User Id=sa;Password=Password1!;TrustServerCertificate=True;MultipleActiveResultSets=true;
       - ASPNETCORE_URLS=[http://0.0.0.0:8080](http://0.0.0.0:8080) # <-- FORCES C# TO LISTEN ON 8080 INTERNALLY
     ports:
       - "80:8080"                                                  # <-- Droplet port 80 routes to container 8080
